@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine 💘</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+  overflow:hidden;
+}
+.card{
+  width:90%;
+  max-width:360px;
+  background:#fff;
+  padding:20px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,.2);
+  position:relative;
+}
+.photo{
+  width:100%;
+  height:230px;
+  border-radius:15px;
+  overflow:hidden;
+  margin-bottom:15px;
+}
+.photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 30%;
+  transform:scale(1.08);
+}
+h1{
+  color:#ff4d6d;
+  font-size:20px;
+  margin-bottom:20px;
+}
+.buttons{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+}
+button{
+  padding:12px 25px;
+  border:none;
+  border-radius:30px;
+  font-size:16px;
+  cursor:pointer;
+}
+#yes{background:#ff4d6d;color:#fff;}
+#no{
+  background:#adb5bd;
+  color:#fff;
+  position:absolute;
+}
+.heart{
+  position:fixed;
+  top:-10px;
+  font-size:24px;
+  animation:fall linear forwards;
+}
+@keyframes fall{
+  to{transform:translateY(110vh);opacity:0;}
+}
+.confetti{
+  position:fixed;
+  width:10px;
+  height:10px;
+  animation:confetti 3s linear forwards;
+}
+@keyframes confetti{
+  to{transform:translateY(110vh) rotate(720deg);opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+  <div class="photo">
+    <img src="photo1.jpg" alt="Us ❤️">
+  </div>
+
+  <h1>Will you be my Valentine,<br>Mrs. Kankaria Mehta 💖</h1>
+
+  <div class="buttons">
+    <button id="yes">Yes 💕</button>
+    <button id="no">No 😜</button>
+  </div>
+</div>
+
+<audio id="music" src="song.mp3"></audio>
+
+<script>
+const noBtn=document.getElementById("no");
+const yesBtn=document.getElementById("yes");
+const music=document.getElementById("music");
+
+function moveNo(){
+  noBtn.style.left=Math.random()*(window.innerWidth-100)+"px";
+  noBtn.style.top=Math.random()*(window.innerHeight-100)+"px";
+}
+noBtn.addEventListener("mouseover",moveNo);
+noBtn.addEventListener("touchstart",moveNo);
+
+yesBtn.addEventListener("click",()=>{
+  music.play();
+  document.getElementById("card").innerHTML=`
+    <h1>Na ka option he nahi tha i know 💘🥰</h1>
+    
+    <p>You’re my forever Valentine 💞</p>
+  `;
+  hearts();
+  confetti();
+  setTimeout(()=>{
+    window.location.href="https://wa.me/?text="+
+      encodeURIComponent("YES 💖 I just said YES to being your Valentine 😘");
+  },4000);
+});
+
+function hearts(){
+  setInterval(()=>{
+    const h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="❤️";
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=(2+Math.random()*3)+"s";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),5000);
+  },200);
+}
+function confetti(){
+  for(let i=0;i<60;i++){
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=["#ff4d6d","#ffd166","#ff758f","#ffb703"][Math.floor(Math.random()*4)];
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),4000);
+  }
+}
+</script>
+
+</body>
+</html>
